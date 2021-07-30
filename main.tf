@@ -16,11 +16,9 @@ resource "aws_iam_role" "role" {
   path                 = var.path
 
   tags = merge(
-    var.tags,
-    map(
-      "Name", var.name
-    )
-  )
+    var.tags, {
+      "Name" = var.name
+  })
 
   assume_role_policy = length(compact(var.allow_arn)) > 0 ? data.aws_iam_policy_document.access-policy-arn[0].json : data.aws_iam_policy_document.access-policy-service[0].json
 }
