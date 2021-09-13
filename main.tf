@@ -25,7 +25,7 @@ resource "aws_iam_role" "role" {
 
 // Defines who is able to access the role (Prinicapls)
 data "aws_iam_policy_document" "access-policy-service" {
-  count = var.enabled ? 1 : 0
+  count = var.enabled && length(compact(var.allow_service)) > 0  ? 1 : 0
 
   statement {
     sid = "AllowService"
